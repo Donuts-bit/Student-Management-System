@@ -1,8 +1,7 @@
-```python
+
 from flask import Flask, request, redirect, url_for, render_template_string
 
 app = Flask(__name__)
-
 students = []
 
 HTML = """
@@ -18,29 +17,22 @@ HTML = """
             padding: 20px;
             background: #f4f6f9;
         }
-
-        h1 {
-            color: #243b55;
-        }
-
+        h1 { color: #243b55; }
         .version {
             color: #198754;
             font-size: 16px;
             margin-bottom: 25px;
         }
-
         form, .student {
             background: white;
             padding: 15px;
             margin-bottom: 15px;
             border-radius: 8px;
         }
-
         input, button {
             padding: 10px;
             margin: 5px 0;
         }
-
         button {
             background: #243b55;
             color: white;
@@ -48,56 +40,42 @@ HTML = """
             cursor: pointer;
             border-radius: 4px;
         }
-
-        button:hover {
-            background: #198754;
-        }
+        button:hover { background: #198754; }
     </style>
 </head>
 <body>
-
     <h1>Student Management System - Version 2.0 🚀</h1>
-
     <p class="version">
         Updated successfully through Jenkins CI/CD Pipeline!
     </p>
 
     <form action="/add" method="post">
         <h3>Add a Student</h3>
-
         <input name="roll" placeholder="Roll Number" required>
         <input name="name" placeholder="Student Name" required>
         <input name="course" placeholder="Course" required>
-
         <button type="submit">Add Student</button>
     </form>
 
     <h2>Student Records</h2>
-
     {% for student in students %}
     <div class="student">
         <strong>{{ student.roll }} — {{ student.name }}</strong>
-
         <p>Course: {{ student.course }}</p>
-
         <form action="/delete/{{ student.roll }}" method="post">
             <button type="submit">Delete</button>
         </form>
     </div>
-
     {% else %}
     <p>No students added yet.</p>
     {% endfor %}
-
 </body>
 </html>
 """
 
-
 @app.route("/")
 def home():
     return render_template_string(HTML, students=students)
-
 
 @app.route("/add", methods=["POST"])
 def add_student():
@@ -116,9 +94,7 @@ def add_student():
         "name": name,
         "course": course
     })
-
     return redirect(url_for("home"))
-
 
 @app.route("/delete/<roll>", methods=["POST"])
 def delete_student(roll):
@@ -126,10 +102,7 @@ def delete_student(roll):
         student for student in students
         if student["roll"] != roll
     ]
-
     return redirect(url_for("home"))
-
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=False)
-```
