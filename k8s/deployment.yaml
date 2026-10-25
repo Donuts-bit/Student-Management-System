@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-name: student-management
+  name: student-management
 spec:
 replicas: 1
 selector:
