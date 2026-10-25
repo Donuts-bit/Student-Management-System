@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'YOUR_DOCKERHUB_USERNAME/student-management'
+        DOCKER_IMAGE = 'danisha0405/student-management'
     }
 
     stages {
